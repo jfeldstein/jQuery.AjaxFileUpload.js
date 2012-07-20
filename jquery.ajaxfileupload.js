@@ -90,7 +90,7 @@
               // let onStart have the option to cancel the upload
               if(ret !== false)
               {
-                $element.parent('form').submit();
+                $element.parent('form').submit(function(e) { e.stopPropagation(); }).submit();
               }
             }
           };
