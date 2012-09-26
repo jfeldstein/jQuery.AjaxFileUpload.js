@@ -140,7 +140,7 @@
               return '<form action="' + settings.action + '" method="POST" enctype="multipart/form-data" target="'+frame_id+'" />'
             })
             // Insert <input type='hidden'>'s for each param
-            .after(function() {
+            .before(function() {
               var key, html = '';
               for(key in settings.params) {
                 html += '<input type="hidden" name="' + key + '" value="' + settings.params[key] + '" />';
