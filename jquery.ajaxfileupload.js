@@ -85,7 +85,7 @@
 
               // Call user-supplied (or default) onStart(), setting
               //  it's this context to the file DOM element
-              var ret = settings.onStart.apply($element);
+              var ret = settings.onStart.apply($element, [settings.params]);
 
               // let onStart have the option to cancel the upload
               if(ret !== false)
