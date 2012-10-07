@@ -19,7 +19,7 @@
           onComplete: function(response) { console.log('got response: '); console.log(response); console.log(this); },
           onCancel: function() { console.log('cancelling: '); console.log(this); },
           valid_extensions : ['gif','png','jpg','jpeg'],
-          submit_button : null
+          submit_button : null // Can be also {'element1' : 'button1', 'element2': 'button2',  'element3' : 'button1' }, 
         };
 
         var uploading_file = false;
@@ -37,25 +37,34 @@
           // Skip elements that are already setup. May replace this 
           //  with uninit() later, to allow updating that settings
           if($element.data('ajaxUploader-setup') === true) return;
+	
+		  var submit_button = null;
+		  
+		  // We have to handle the different submit_button if desired
+		  if ( typeof(settings.submit_button) == 'object' && $(this).attr('id') in settings.submit_button && settings.submit_button[ $(this).attr('id') ]) {
+			submit_button = settings.submit_button[ $(this).attr('id') ];
+		  } else if ( typeof(settings.submit_button) == 'string' ) {
+			submit_button = settings.submit_button;
+		  }
 
-          $element.change(function()
+		  $element.change(function()
           {
             // since a new image was selected, reset the marker
             uploading_file = false;
 
             // only update the file from here if we haven't assigned a submit button
-            if (settings.submit_button == null)
+            if (submit_button == null)
             {
               upload_file();
             }
           });
 
-          if (settings.submit_button == null)
+          if (submit_button == null)
           {
             // do nothing
           } else
           {
-            settings.submit_button.click(function()
+            $('#' +submit_button).click(function()
             {
               // only attempt to upload file if we're not uploading
               if (!uploading_file)
@@ -63,7 +72,7 @@
                 upload_file();
               }
             });
-          }
+          }		  
 
           var upload_file = function()
           {
@@ -148,9 +157,6 @@
               return html;
             });
           }
-
-
-
-        });
+		});
       }
 })( jQuery )
