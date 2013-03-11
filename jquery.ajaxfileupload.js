@@ -143,7 +143,11 @@
             .before(function() {
               var key, html = '';
               for(key in settings.params) {
-                html += '<input type="hidden" name="' + key + '" value="' + settings.params[key] + '" />';
+                var paramVal = settings.params[key];
+                if (typeof paramVal === 'function') {
+                  paramVal = paramVal();
+                }
++               html += '<input type="hidden" name="' + key + '" value="' + paramVal + '" />';
               }
               return html;
             });
