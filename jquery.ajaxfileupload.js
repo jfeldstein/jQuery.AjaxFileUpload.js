@@ -147,7 +147,7 @@
                 if (typeof paramVal === 'function') {
                   paramVal = paramVal();
                 }
-+               html += '<input type="hidden" name="' + key + '" value="' + paramVal + '" />';
+                html += '<input type="hidden" name="' + key + '" value="' + paramVal + '" />';
               }
               return html;
             });
