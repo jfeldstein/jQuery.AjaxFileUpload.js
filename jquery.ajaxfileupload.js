@@ -18,6 +18,7 @@
           onStart: function() { console.log('starting upload'); console.log(this); },
           onComplete: function(response) { console.log('got response: '); console.log(response); console.log(this); },
           onCancel: function() { console.log('cancelling: '); console.log(this); },
+          validate_extensions : true,
           valid_extensions : ['gif','png','jpg','jpeg'],
           submit_button : null
         };
@@ -71,7 +72,7 @@
 
             // make sure extension is valid
             var ext = $element.val().split('.').pop().toLowerCase();
-            if($.inArray(ext, settings.valid_extensions) == -1)
+            if(true === settings.validate_extensions && $.inArray(ext, settings.valid_extensions) == -1)
             {
               // Pass back to the user
               settings.onComplete.apply($element, [{status: false, message: 'The select file type is invalid. File must be ' + settings.valid_extensions.join(', ') + '.'}, settings.params]);
