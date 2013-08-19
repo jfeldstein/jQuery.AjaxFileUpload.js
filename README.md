@@ -7,7 +7,7 @@ response to a callback, nothing else.
 
 **Simple HTML**
 
-    <input type="file" id="one-specific-file">
+    <input type="file" id="one-specific-file" name="one-specific-file">
 
 **Use as little as**
 
