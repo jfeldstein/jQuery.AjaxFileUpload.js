@@ -12,25 +12,25 @@ response to a callback, nothing else.
 **Use as little as**
 
     $('#one-specific-file').ajaxfileupload({
-      'action': '/upload.php'
+      action: '/upload.php'
     });
 
 **or as much as**
 
     $('input[type="file"]').ajaxfileupload({
-      'action': '/upload.php',
+      action: '/upload.php',
       valid_extensions : ['md','csv'],
-      'params': {
-        'extra': 'info'
+      params: {
+        extra: 'info'
       },
-      'onComplete': function(response) {
+      onComplete: function(response) {
         console.log('custom handler for file:');
         alert(JSON.stringify(response));
       },
-      'onStart': function() {
+      onStart: function() {
         if(weWantedTo) return false; // cancels upload
       },
-      'onCancel': function() {
+      onCancel: function() {
         console.log('no file selected');
       }
     });
