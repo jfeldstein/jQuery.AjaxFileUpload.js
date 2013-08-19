@@ -5,6 +5,10 @@ response to a callback, nothing else.
 - It does not require your server to respond in any particular way
 - It does not matter how many files you use, or where they are on the page
 
+**Simple HTML**
+
+    <input type="file" id="one-specific-file">
+
 **Use as little as**
 
     $('#one-specific-file').ajaxfileupload({
