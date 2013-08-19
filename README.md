@@ -15,6 +15,7 @@ response to a callback, nothing else.
 
     $('input[type="file"]').ajaxfileupload({
       'action': '/upload.php',
+      valid_extensions : ['md','csv'],
       'params': {
         'extra': 'info'
       },
