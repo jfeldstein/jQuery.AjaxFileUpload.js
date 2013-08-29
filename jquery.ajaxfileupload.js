@@ -20,7 +20,8 @@
           onCancel: function() { console.log('cancelling: '); console.log(this); },
           validate_extensions : true,
           valid_extensions : ['gif','png','jpg','jpeg'],
-          submit_button : null
+          submit_button : null,
+          dataType: 'html'
         };
 
         var uploading_file = false;
@@ -104,7 +105,7 @@
           //  and clean up after ourselves. 
           */
           var handleResponse = function(loadedFrame, element) {
-            var response, responseStr = loadedFrame.contentWindow.document.body.innerHTML;
+            var response, responseStr = settings.dataType == 'json' ? loadedFrame.contentWindow.document.body.innerText : loadedFrame.contentWindow.document.body.innerHTML;
             try {
               //response = $.parseJSON($.trim(responseStr));
               response = JSON.parse(responseStr);
