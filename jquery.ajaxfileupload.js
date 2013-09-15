@@ -15,11 +15,11 @@
         var settings = {
           params: {},
           action: '',
-          onStart: function() { console.log('starting upload'); console.log(this); },
-          onComplete: function(response) { console.log('got response: '); console.log(response); console.log(this); },
-          onCancel: function() { console.log('cancelling: '); console.log(this); },
-          validate_extensions : true,
-          valid_extensions : ['gif','png','jpg','jpeg'],
+          onStart: function() {},
+          onComplete: function(response) {},
+          onCancel: function() {},
+          validate_extensions : false,
+          valid_extensions : [],
           submit_button : null,
           dataType: 'html'
         };
