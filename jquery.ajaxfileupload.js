@@ -56,8 +56,11 @@
             // do nothing
           } else
           {
-            settings.submit_button.click(function()
+            settings.submit_button.click(function(e)
             {
+              // Prevent non-AJAXy submit
+              e.preventDefault();
+              
               // only attempt to upload file if we're not uploading
               if (!uploading_file)
               {
