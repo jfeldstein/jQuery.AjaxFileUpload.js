@@ -18,6 +18,7 @@ response to a callback, nothing else.
       'params': {
         'extra': 'info'
       },
+      'maxSize': 'input number in kilobyte',
       'onComplete': function(response) {
         console.log('custom handler for file:');
         alert(JSON.stringify(response));
