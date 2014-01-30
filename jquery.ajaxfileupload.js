@@ -15,6 +15,7 @@
         var settings = {
           params: {},
           action: '',
+          maxSize: '1024',
           onStart: function() { console.log('starting upload'); console.log(this); },
           onComplete: function(response) { console.log('got response: '); console.log(response); console.log(this); },
           onCancel: function() { console.log('cancelling: '); console.log(this); },
@@ -75,11 +76,18 @@
 
             // make sure extension is valid
             var ext = $element.val().split('.').pop().toLowerCase();
+            // get file size
+            var size = $element.get(0).files[0].size;
             if(true === settings.validate_extensions && $.inArray(ext, settings.valid_extensions) == -1)
             {
               // Pass back to the user
               settings.onComplete.apply($element, [{status: false, message: 'The select file type is invalid. File must be ' + settings.valid_extensions.join(', ') + '.'}, settings.params]);
-            } else
+            } 
+            // make sure file size is less than specified
+            else if((size / 1024) > settings.maxSize){
+              settings.onComplete.apply($element, [{success: false, message: 'The selected file is bigger than maximum limit of ' + settings.maxSize + ' kilobyte'}, settings.params]);  
+            }
+            else
             { 
               uploading_file = true;
 
