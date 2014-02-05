@@ -15,27 +15,28 @@
         var settings = {
           params: {},
           action: '',
-          onStart: function() { console.log('starting upload'); console.log(this); },
-          onComplete: function(response) { console.log('got response: '); console.log(response); console.log(this); },
-          onCancel: function() { console.log('cancelling: '); console.log(this); },
-          validate_extensions : true,
-          valid_extensions : ['gif','png','jpg','jpeg'],
-          submit_button : null
+          onStart: function() {},
+          onComplete: function(response) {},
+          onCancel: function() {},
+          validate_extensions : false,
+          valid_extensions : [],
+          submit_button : null,
+          dataType: 'html'
         };
 
         var uploading_file = false;
 
-        if ( options ) { 
+        if ( options ) {
           $.extend( settings, options );
         }
 
 
-        // 'this' is a jQuery collection of one or more (hopefully) 
+        // 'this' is a jQuery collection of one or more (hopefully)
         //  file elements, but doesn't check for this yet
         return this.each(function() {
           var $element = $(this);
 
-          // Skip elements that are already setup. May replace this 
+          // Skip elements that are already setup. May replace this
           //  with uninit() later, to allow updating that settings
           if($element.data('ajaxUploader-setup') === true) return;
 
@@ -80,10 +81,10 @@
               // Pass back to the user
               settings.onComplete.apply($element, [{status: false, message: 'The select file type is invalid. File must be ' + settings.valid_extensions.join(', ') + '.'}, settings.params]);
             } else
-            { 
+            {
               uploading_file = true;
 
-              // Creates the form, extra inputs and iframe used to 
+              // Creates the form, extra inputs and iframe used to
               //  submit / upload the file
               wrapElement($element);
 
@@ -103,11 +104,11 @@
           $element.data('ajaxUploader-setup', true);
 
           /*
-          // Internal handler that tries to parse the response 
-          //  and clean up after ourselves. 
+          // Internal handler that tries to parse the response
+          //  and clean up after ourselves.
           */
           var handleResponse = function(loadedFrame, element) {
-            var response, responseStr = loadedFrame.contentWindow.document.body.innerHTML;
+            var response, responseStr = settings.dataType == 'json' ? loadedFrame.contentWindow.document.body.innerText : loadedFrame.contentWindow.document.body.innerHTML;
             try {
               //response = $.parseJSON($.trim(responseStr));
               response = JSON.parse(responseStr);
@@ -128,8 +129,8 @@
           /*
           // Wraps element in a <form> tag, and inserts hidden inputs for each
           //  key:value pair in settings.params so they can be sent along with
-          //  the upload. Then, creates an iframe that the whole thing is 
-          //  uploaded through. 
+          //  the upload. Then, creates an iframe that the whole thing is
+          //  uploaded through.
           */
           var wrapElement = function(element) {
             // Create an iframe to submit through, using a semi-unique ID
