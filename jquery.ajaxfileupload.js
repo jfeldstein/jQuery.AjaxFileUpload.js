@@ -107,7 +107,7 @@
           //  and clean up after ourselves. 
           */
           var handleResponse = function(loadedFrame, element) {
-            var response, responseStr = loadedFrame.contentWindow.document.body.innerHTML;
+            var response, responseStr = $(loadedFrame).contents().text();
             try {
               //response = $.parseJSON($.trim(responseStr));
               response = JSON.parse(responseStr);
@@ -135,9 +135,9 @@
             // Create an iframe to submit through, using a semi-unique ID
             var frame_id = 'ajaxUploader-iframe-' + Math.round(new Date().getTime() / 1000)
             $('body').after('<iframe width="0" height="0" style="display:none;" name="'+frame_id+'" id="'+frame_id+'"/>');
-            $('#'+frame_id).load(function() {
+            $('#'+frame_id).get(0).onload = function() {
               handleResponse(this, element);
-            });
+            };
 
             // Wrap it in a form
             element.wrap(function() {
