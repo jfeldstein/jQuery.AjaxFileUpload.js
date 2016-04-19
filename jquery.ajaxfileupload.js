@@ -95,6 +95,8 @@
               if(ret !== false)
               {
                 $element.parent('form').submit(function(e) { e.stopPropagation(); }).submit();
+              } else {
+                uploading_file = false;
               }
             }
           };
@@ -156,9 +158,6 @@
               return html;
             });
           }
-
-
-
         });
       }
 })( jQuery )
