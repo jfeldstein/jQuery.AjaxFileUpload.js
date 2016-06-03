@@ -20,7 +20,8 @@
           onCancel: function() { },
           validate_extensions : true,
           valid_extensions : ['gif','png','jpg','jpeg'],
-          submit_button : null
+          submit_button : null,
+          message : "The select file type is invalid. File must be"
         };
 
         var uploading_file = false;
@@ -78,7 +79,7 @@
             if(true === settings.validate_extensions && $.inArray(ext, settings.valid_extensions) == -1)
             {
               // Pass back to the user
-              settings.onComplete.apply($element, [{status: false, message: 'The select file type is invalid. File must be ' + settings.valid_extensions.join(', ') + '.'}, settings.params]);
+              settings.onComplete.apply($element, [{status: false, message: settings.message +" "+ settings.valid_extensions.join(', ') + '.'}, settings.params]);
             } else
             { 
               uploading_file = true;
