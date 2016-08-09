@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>AjaxFileUpload Demo</title>
+<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+<blockquote>
+	<p>
+	The dom mode: use like this: <code>$('#file_id').ajaxfileupload({ options });</code>
+	</p>
+</blockquote>
+<input type="file" id="myfile" />
+<br/><br/>
+<blockquote>
+	<p>
+	The class mode: use like this: <code>$.ajaxfileupload({ options });</code>
+	</p>
+</blockquote>
+<input type="file" id="myfile1" class="pull-left" />
+<input type="button" value="upload" class="btn btn-sm btn-default" onclick="upload();" />
+</div>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="../jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="../jquery.ajaxfileupload.classmode.js"></script>
+<script type="text/javascript">
+function upload(){
+	$.ajaxfileupload({
+		'action': 'upload.php',
+		'file_id': 'myfile1',
+		'params': { 'otherparams': 'value' },
+		'onComplete': function(data){
+			alert(data);
+		},
+		'onCancel': function(){
+			alert('no file selected');
+		}
+	});
+}
+$(document).ready(function(){
+	$('#myfile').ajaxfileupload({
+		'action': 'upload.php',
+		'params': { 'otherparams': 'value' },
+		'onComplete': function(data){
+			alert(data);
+		},
+		'onCancel': function(){
+			alert('no file selected');
+		}
+	});
+});
+</script>
+</body>
+</html>
