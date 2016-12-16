@@ -82,15 +82,24 @@
             } else
             { 
               uploading_file = true;
-
+              
               // Creates the form, extra inputs and iframe used to 
               //  submit / upload the file
               wrapElement($element);
-
+              
               // Call user-supplied (or default) onStart(), setting
               //  it's this context to the file DOM element
               var ret = settings.onStart.apply($element, [settings.params]);
-
+              
+              // Update the value of params if OnStart change the params
+              for(key in settings.params) {
+                  var paramVal = settings.params[key];
+                  if (typeof paramVal === 'function') {
+                      paramVal = paramVal();
+                  }
+                  $element.siblings('input[name="'+key+'"]').val(paramVal); 
+              }
+              
               // let onStart have the option to cancel the upload
               if(ret !== false)
               {
