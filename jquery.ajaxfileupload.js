@@ -44,6 +44,7 @@
             // since a new image was selected, reset the marker
             uploading_file = false;
 
+              $element=$(this);
             // only update the file from here if we haven't assigned a submit button
             if (settings.submit_button == null)
             {
